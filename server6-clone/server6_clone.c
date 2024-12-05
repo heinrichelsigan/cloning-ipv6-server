@@ -21,11 +21,16 @@
 #define NMAP_OFFSET	1024
 #define RECEIVE_BUFFER 8192
 
+/* defining global variables */
+char progname[128], outmsg[4096];	// program name argv[0] and outmsg
+int c = -1;							// client socket descriptor
 
-char progname[128], outmsg[4096];
-int c = -1;
-
-
+/* 
+ * usage(...) prints out a error or info message and might close and exit program with an errorcode or success status code.
+ * char *msg 		message to printf
+ * int exitCode 	exit code
+ * short noExit		if (noExit == 1) program will not print extra usage and resume by not exiting
+ */
 void usage(char *msg, int exitCode, short noExit)
 {
 	if (msg != NULL)
@@ -40,9 +45,15 @@ void usage(char *msg, int exitCode, short noExit)
 }
 
 
-/* Start function for cloned child */ 
+/* 
+ * childFunc 	...		start function for cloned child 
+ * void *arg 	...		void pointer to any array 
+ * 
+ * return int childExitCode for exit status of child thread 
+ */
 static int childFunc(void *arg) 
 {
+	int childExitCode = 0;
 	int  bytesum = 0;
 	
 	if (c > 0) 
@@ -57,18 +68,24 @@ static int childFunc(void *arg)
 	}
 	else 
 	{
+		childExitCode = -1;
 		sprintf(outmsg, "%s:\tclient socket descriptor returns -1; client socket is'nt availible anymore!\nclosing cloned child in 2 sec.",
 						progname);
 		usage(outmsg, 0, 1);
 	}
 
-
 	sleep(2);							/* Keep child posix thread for 2s alive, before extting child thread. */			
 
-	return 0;
+	return childExitCode;
 }
 
-
+/*
+* 
+* handle_client 	...		handles client socket connect and send & receive data *
+* int csd 			...		client socket descriptor 
+* 
+* return int number of total processed RECEIVE_BUFFER (mostly 8192) bytes blocks
+*/
 int handle_client(int csd)
 {
 	char buf[RECEIVE_BUFFER];
@@ -92,7 +109,13 @@ int handle_client(int csd)
 }
 
 
-
+/*
+ * main 		... 	main start for server6_clone program
+ * int argc 	...		argument counter
+ * char *argv[]	...		array of arguments
+ *
+ * return  		... 	program exit code
+ */
 int main(int argc, char *argv[])
 {
 	char 				        *stack, *stackTop;  				/* Start & End of stack buffer */
@@ -210,7 +233,5 @@ int main(int argc, char *argv[])
   }
 
 }
-
-
 
 
