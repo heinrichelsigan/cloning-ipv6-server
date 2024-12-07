@@ -33,7 +33,7 @@ public class EchoServer extends Thread implements Runnable {
 				System.out.println("server address set to " + serverAddress);
 			}			
 			
-			ipPort = (new Integer(args[argslen])).intValue();
+			ipPort = (Integer.valueOf(args[argslen])).intValue();
 		}
 		
 		try {

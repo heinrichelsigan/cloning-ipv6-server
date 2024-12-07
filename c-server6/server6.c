@@ -1,7 +1,7 @@
 /*
- * srver6.c - a simple ipv6 capable cloning echo server, that use clone(2) instead of fork(2)
- * Author: 	 office@area23.at
- * Open Source (MIT Licenese)
+ * srver6.c     a simple ipv6 capable cloning echo server, that use clone(2) instead of fork(2)
+ * Author	      he23[AT]area23.at
+ * Open Source  (MIT Licenese)
  */
 #define _GNU_SOURCE 
 

@@ -24,7 +24,7 @@ server6: server6.o
 	gcc ${GCCFLAGS}  -o server6 server6.o
 
 server6.o: server6.c
-	gcc  ${GCCFLAGS} -o server6.o -c server6_c
+	gcc  ${GCCFLAGS} -o server6.o -c server6.c
 
 
 # clean cleans client6 server6_clone 

@@ -1,7 +1,7 @@
 /*
- * client6.c - a simple ipv6 capable echo client, that sends a text message to the server */
- * Author: 	 office@area23.at
- * Open Source (MIT Licenese)
+ * client6.c    a simple ipv6 capable echo client, that sends a text message to the server 
+ * Author 	    office[AT]area23.at
+ * Open Source  (MIT Licenese)
  */
 #include "socket6.h"
 #include <arpa/inet.h>

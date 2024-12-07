@@ -137,7 +137,7 @@ public class EchoClient {
 		
 		EchoClient client = new EchoClient();		
 		String myhost = args[0];
-		int myport = (new Integer(args[1])).intValue();
+		int myport = (Integer.valueOf(args[1])).intValue();
 		String myecho = args[2];
 		
 		if (client.connect(myhost, myport) != 0) {

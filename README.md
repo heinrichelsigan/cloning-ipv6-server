@@ -71,4 +71,3 @@ client6.s and server6_clone.s will be compiled and linked with **gcc** and ***GN
 <pre>java EchoServer 127.0.0.1 7777</pre>
 
 <hr />
-clos
