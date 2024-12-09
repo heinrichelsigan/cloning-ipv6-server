@@ -33,11 +33,13 @@ public class EchoServer extends Thread implements Runnable {
 				multiAddr = false;
 				server4Address = args[0];
 				System.out.println("server address set to " + server4Address);
-			} else if (argslen > 1) {
+			} 
+      if (argslen > 1) {
         multiAddr = true;
         server6Address = args[1];
         System.out.println("server address6 set to " + server6Address);
-      } else if (argslen > 2) 
+      } 
+      if (argslen > 2) 
 			  ipPort = (Integer.valueOf(args[argslen])).intValue();
 		}
 		
@@ -109,11 +111,12 @@ public class EchoServer extends Thread implements Runnable {
 			
 					BufferedOutputStream outStream = new BufferedOutputStream(client.getOutputStream());
 					BufferedInputStream inStream = new BufferedInputStream(client.getInputStream());
+					String inBuffer = receiveIn(inStream);
 					// EchoInputStream inStream = new EchoInputStream(client.getInputStream());
 					// String inBuffer = inStream.getRequest();
-					String inBuffer = receiveIn(inStream);
 					String outBuffer = serverHostIpName + "\t=>\t" + clientHostIpName + "\t" + inBuffer;
-					System.out.println("\nFinished, now sending back to socket ...");
+					
+          System.out.println("Finished, now sending back to socket: \n" + outBuffer);
 					
 					sendOut(outBuffer, outStream);
         
@@ -126,6 +129,7 @@ public class EchoServer extends Thread implements Runnable {
 				} catch(IOException ex) {			
 					System.err.println("IOException occured when closing socket.");
 				}
+          System.out.println("client socket close()");
             
 			} while(true);
 			
@@ -151,8 +155,8 @@ public class EchoServer extends Thread implements Runnable {
 	
 	public String receiveIn(BufferedInputStream in) throws IOException {        		
 		
-		StringBuffer result = new StringBuffer();
-        System.out.println("Receiving from socket: ");
+		StringBuffer result = new StringBuffer(); 
+    System.out.println("Receiving from socket: ");
 		
 		try {
 			do {
@@ -161,7 +165,7 @@ public class EchoServer extends Thread implements Runnable {
 				ch = in.read();
 				
 				if (ch == -1 || ch == 10 || ch == 13) // { handles EOF -1, CR \r & LF \n
-					break; // } return result.toString();
+				  return result.toString();
 				else
 					result.append((char) ch);
 				
