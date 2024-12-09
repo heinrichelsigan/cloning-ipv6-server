@@ -1,0 +1,9 @@
+﻿#
+# .gitignore file for unix c
+# 
+
+*.o
+server6.o
+client6.o
+server6
+client6
