@@ -1,3 +1,8 @@
+/*
+ * socket6.h common header file for server6.c and client6.c
+ * Author             he23[AT]area23.at
+ * Open Source  (MIT Licenese)
+ */
 #define _GNU_SOURCE 
 
 #include <stdio.h>
@@ -12,5 +17,5 @@
 #define MSGBUFLEN       8192            /* send and receive message buffer size */
 
 void usemsg(char *msg, int exitcode);	/* function handle_client declaration */
-long handle_client(int csd);			/* function handle_client declaration */
-static int childfunc(void *arg); 		/* function childfunc declaration */
+long handle_client(int csd);		/* function handle_client declaration */
+static int childfunc(void *arg); 	/* function childfunc declaration */
