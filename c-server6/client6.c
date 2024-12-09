@@ -42,7 +42,7 @@ char *ping(int sd, char *msg)
 	send(sd, inbuf, strlen(inbuf), 0);
 	recv(sd, outbuf, MSGBUFLEN, 0);
   
-	strncpy(&outbuf[strlen(outbuf)], "\n\0", MSGBUFLEN - strlen(outbuf));
+	strncpy(&outbuf[strlen(outbuf)], "\r\n\0", MSGBUFLEN - strlen(outbuf));
 	
 	printf("len=%ld, size=%ld, %s\n", strlen(outbuf), sizeof(outbuf), outbuf);
 	return &outbuf[0];
