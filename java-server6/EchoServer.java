@@ -13,7 +13,8 @@ public class EchoServer extends Thread implements Runnable {
 	final static int MAX_CONNECTIONS = 12;
 	final static String IPV4_ADDR = "127.0.0.1";
 	final static String IPV6_ADDR = "::1";
-	static String serverAddress = IPV4_ADDR;
+	static String server4Address = IPV4_ADDR;
+	static String server6Address = IPV6_ADDR;
 	static boolean multiAddr = true;
 	static InetAddress saddress;
 	static int sport = 7777; // default Port   
@@ -30,22 +31,27 @@ public class EchoServer extends Thread implements Runnable {
 			
 			if (argslen > 0)  {
 				multiAddr = false;
-				serverAddress = args[0];
-				System.out.println("server address set to " + serverAddress);
-			}			
-			
-			ipPort = (Integer.valueOf(args[argslen])).intValue();
+				server4Address = args[0];
+				System.out.println("server address set to " + server4Address);
+			} 
+      if (argslen > 1) {
+        multiAddr = true;
+        server6Address = args[1];
+        System.out.println("server address6 set to " + server6Address);
+      } 
+      if (argslen > 2) 
+			  ipPort = (Integer.valueOf(args[argslen])).intValue();
 		}
 		
 		try {
-			InetAddress inetAddr = InetAddress.getByName(serverAddress);
+			InetAddress inetAddr = InetAddress.getByName(server4Address);
 			sport = ipPort;
 			ServerSocket serverSock = new ServerSocket(ipPort, MAX_CONNECTIONS, inetAddr);	
 			EchoServer server = new EchoServer(serverSock);
 				
 			if (multiAddr) {		
 			
-				InetAddress ipv6Addr = InetAddress.getByName(IPV6_ADDR);
+				InetAddress ipv6Addr = InetAddress.getByName(server6Address);
 				ServerSocket ipv6Socket = new ServerSocket(ipPort, MAX_CONNECTIONS, ipv6Addr);	
 				EchoServer server6 = new EchoServer(ipv6Socket);
 					
@@ -105,11 +111,12 @@ public class EchoServer extends Thread implements Runnable {
 			
 					BufferedOutputStream outStream = new BufferedOutputStream(client.getOutputStream());
 					BufferedInputStream inStream = new BufferedInputStream(client.getInputStream());
+					String inBuffer = receiveIn(inStream);
 					// EchoInputStream inStream = new EchoInputStream(client.getInputStream());
 					// String inBuffer = inStream.getRequest();
-					String inBuffer = receiveIn(inStream);
 					String outBuffer = serverHostIpName + "\t=>\t" + clientHostIpName + "\t" + inBuffer;
-					System.out.println("\nFinished, now sending back to socket ...");
+					
+          System.out.println("Finished, now sending back to socket: \n" + outBuffer);
 					
 					sendOut(outBuffer, outStream);
         
@@ -122,6 +129,7 @@ public class EchoServer extends Thread implements Runnable {
 				} catch(IOException ex) {			
 					System.err.println("IOException occured when closing socket.");
 				}
+          System.out.println("client socket close()");
             
 			} while(true);
 			
@@ -147,8 +155,8 @@ public class EchoServer extends Thread implements Runnable {
 	
 	public String receiveIn(BufferedInputStream in) throws IOException {        		
 		
-		StringBuffer result = new StringBuffer();
-        System.out.println("Receiving from socket: ");
+		StringBuffer result = new StringBuffer(); 
+    System.out.println("Receiving from socket: ");
 		
 		try {
 			do {
@@ -157,7 +165,7 @@ public class EchoServer extends Thread implements Runnable {
 				ch = in.read();
 				
 				if (ch == -1 || ch == 10 || ch == 13) // { handles EOF -1, CR \r & LF \n
-					break; // } return result.toString();
+				  return result.toString();
 				else
 					result.append((char) ch);
 				
