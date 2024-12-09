@@ -38,11 +38,12 @@ char *ping(int sd, char *msg)
 {
 	char inbuf[MSGBUFLEN], outbuf[MSGBUFLEN];
 	
-	strcpy(inbuf, msg);
+	// strcpy(inbuf, msg);
+    sprintf(inbuf, "%s\r\n\0", msg);
 	send(sd, inbuf, strlen(inbuf), 0);
 	recv(sd, outbuf, MSGBUFLEN, 0);
   
-	strncpy(&outbuf[strlen(outbuf)], "\r\n\0", MSGBUFLEN - strlen(outbuf));
+	strncpy(&outbuf[strlen(outbuf)], "\0", MSGBUFLEN - strlen(outbuf));
 	
 	printf("len=%ld, size=%ld, %s\n", strlen(outbuf), sizeof(outbuf), outbuf);
 	return &outbuf[0];
