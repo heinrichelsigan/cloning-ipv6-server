@@ -10,7 +10,7 @@ server: SERVER
 clean: CLEAN
 	
 SERVER:
-	javac EchoServer.java EchoInputStream.java	
+	javac EchoServer.java	
 
 CLIENT: 
 	javac EchoClient.java

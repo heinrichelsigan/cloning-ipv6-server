@@ -9,7 +9,8 @@ import java.util.*;
 
 public class EchoServer extends Thread implements Runnable {
     
-	final static int MAX_CONNECTIONS = 10;
+	final static int MAXCHARS = 8192;
+	final static int MAX_CONNECTIONS = 12;
 	final static String IPV4_ADDR = "127.0.0.1";
 	final static String IPV6_ADDR = "::1";
 	static String serverAddress = IPV4_ADDR;
@@ -103,9 +104,10 @@ public class EchoServer extends Thread implements Runnable {
 					String clientHostIpName = describeConnection(client);
 			
 					BufferedOutputStream outStream = new BufferedOutputStream(client.getOutputStream());
-					EchoInputStream inStream = new EchoInputStream(client.getInputStream());
-					String inBuffer = inStream.getRequest();
-            
+					BufferedInputStream inStream = new BufferedInputStream(client.getInputStream());
+					// EchoInputStream inStream = new EchoInputStream(client.getInputStream());
+					// String inBuffer = inStream.getRequest();
+					String inBuffer = receiveIn(inStream);
 					String outBuffer = serverHostIpName + "\t=>\t" + clientHostIpName + "\t" + inBuffer;
 					System.out.println("\nFinished, now sending back to socket ...");
 					
@@ -143,6 +145,31 @@ public class EchoServer extends Thread implements Runnable {
     }
 	
 	
+	public String receiveIn(BufferedInputStream in) throws IOException {        		
+		
+		StringBuffer result = new StringBuffer();
+        System.out.println("Receiving from socket: ");
+		
+		try {
+			do {
+				
+				int ch = -1; // EOF
+				ch = in.read();
+				
+				if (ch == -1 || ch == 10 || ch == 13) // { handles EOF -1, CR \r & LF \n
+					break; // } return result.toString();
+				else
+					result.append((char) ch);
+				
+			} while (result.length() < MAXCHARS);
+			
+        } catch(Exception ex){			
+            System.err.println("Receiving input from socket failed:\n" + ex.toString());			
+        }
+		
+		return result.toString();
+    }
+	  
 	  
     public void sendOut(String buffer, BufferedOutputStream out) throws IOException {
         		
