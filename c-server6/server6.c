@@ -123,6 +123,7 @@ int main(int argc, char *argv[])
 	struct sockaddr_in6 s_addr, c_addr;					// ipv6 server & client socket s_addr
 	socklen_t c_addr_len = sizeof(c_addr);
 	uint16_t tcp6port = TCPv6_PORT; 					// tcp v6 port default to TCPv6_PORT 7777 
+  char *serveraddr = "2600:1f18:7a3f:a700::6291";  // tcp v6 server address
 	int reuseaddr = 1;    
 	int wstatus, w;
 	pid_t pid, wpid;									// pid needed for both fork() and clone(...)
@@ -132,17 +133,23 @@ int main(int argc, char *argv[])
 	long pagesze_offet;
 	struct utsname uts;
 	
-	progname = argv[0];                             
+	progname = argv[0];                            
+  printf("%s program started...\n", progname);
+
 	offset = (off_t)MMAP_OFFSET;
 	pagesze_offet = sysconf(_SC_PAGE_SIZE) - 1;
 	pa_offset = offset & ~(sysconf(_SC_PAGE_SIZE) - 1);
 	
-	if (argc > 1)
-		if ((tcp6port = (uint16_t)atol(argv[1])) < 2)
-			tcp6port = TCPv6_PORT;
-	
-	printf("server listening on port: %d", (int) tcp6port);	
+	if (argc > 1) 
+  {
+    serveraddr = argv[1];
 
+    if (argc > 2)
+		  if ((tcp6port = (uint16_t)atol(argv[2])) < 2)
+			  tcp6port = TCPv6_PORT;
+  }
+
+	printf("server trys listening on address %s port: %d\n", serveraddr, (int) tcp6port);	
 	
 	s_sd = socket(AF_INET6, SOCK_STREAM, IPPROTO_TCP); 	// create socket 
 	if (s_sd == -1) 
@@ -155,7 +162,9 @@ int main(int argc, char *argv[])
 
 	s_addr.sin6_family = AF_INET6; 
 	s_addr.sin6_port = htons(tcp6port);
-	s_addr.sin6_addr =  in6addr_any;
+  // IPv6 string to sockaddr_in6.
+	inet_pton(AF_INET6, serveraddr, &s_addr.sin6_addr);
+  // s_addr.sin6_addr =  in6addr_any;
 	
 	done = bind(s_sd, (struct sockaddr *)&s_addr, 		// bind socket to s_addr  
 		sizeof(s_addr));
@@ -166,7 +175,7 @@ int main(int argc, char *argv[])
 	}
 	
 	done = listen(s_sd, 10);                   			// listen on socket, max connections 10 
-    if (done == -1)	
+  if (done == -1)	
 	{
 		close(s_sd);
 		usemsg("listenning on socket failed!", EXIT_FAILURE);
