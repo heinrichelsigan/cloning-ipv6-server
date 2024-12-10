@@ -1,13 +1,16 @@
-﻿################################################################################
-# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
-################################################################################
+﻿#
+# .gitignore file 
+#
 
-Linux-Docker/obj/Debug/net8.0/ref/CSharp-Server6.dll
-Linux-Docker/obj/Debug/net8.0/refint/CSharp-Server6.dll
-Linux-Docker/obj/Debug/net8.0
-Linux-Docker/obj
-Linux-Docker/bin/Debug/net8.0
-Linux-Docker/bin/Debug
-Linux-Docker/.vs
-Linux-Docker/obj/
-Linux-Docker/bin/Debug/
+serv/client
+serv/server
+serv
+
+CSharp-Server6
+CSharp-Server6/.vs
+
+/CSharp-Server6/.vs/CSharp-Server6-Linux-Docker/DesignTimeBuild/.dtbcache.v2
+/CSharp-Server6/.vs/CSharp-Server6-Linux-Docker/v17/.futdcache.v2
+/CSharp-Server6/.vs/ProjectEvaluation/csharp-server6-linux-docker.metadata.v9.bin
+/CSharp-Server6/.vs/ProjectEvaluation/csharp-server6-linux-docker.projects.v9.bin
+/CSharp-Server6/.vs/ProjectEvaluation/csharp-server6-linux-docker.strings.v9.bin

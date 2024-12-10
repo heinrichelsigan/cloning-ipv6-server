@@ -28,6 +28,12 @@ Priority: u=0, i
 Pragma: no-cache
 Cache-Control: no-cache";
 
+        /// <summary>
+        /// MakeWebRequest
+        /// </summary>
+        /// <param name="serverIp">server ip address</param>
+        /// <param name="serverPort">server port (default 80)</param>
+        /// <returns>client address as string</returns>
         public static string MakeWebRequest(IPAddress serverIp, int serverPort = 80)
         {
             string? resp = string.Empty;
@@ -40,18 +46,25 @@ Cache-Control: no-cache";
                 // tcpClient.Client.Send(data);
                 NetworkStream netStream = tcpClient.GetStream();
                 StreamWriter sw = new StreamWriter(netStream);
-                StreamReader sr = new StreamReader(netStream);
+                // StreamReader sr = new StreamReader(netStream);
                 sw.Write(TEST_HTTP_REQUEST_HEADER);
                 sw.Flush();
-                byte[] outbuf = new byte[8192];
+                // byte[] outbuf = new byte[8192];
                 // int read = tcpClient.Client.Receive(outbuf);
-                sr.BaseStream.Read(outbuf, 0, 8192);
-                Console.Out.WriteLine(Encoding.ASCII.GetString(outbuf, 0, outbuf.Length));
+                // sr.BaseStream.Read(outbuf, 0, 8192);
                 resp = tcpClient.Client.LocalEndPoint?.ToString();
-                // if (resp.Contains("[::ffff:"))
-                //     resp = resp?.Replace("[::ffff:", "[");
+                if (resp != null && resp.Contains("::ffff:"))
+                {
+                    resp = resp?.Replace("::ffff:", "");
+                    if (resp != null && resp.Contains(':'))
+                    {
+                        int lastch = resp.LastIndexOf(":");
+                        resp = resp.Substring(0, lastch);
+                    }
+                    resp = resp?.Trim("[{()}]".ToCharArray());
+                }
                 sw.Close();
-                sr.Close();
+                // sr.Close();
                 netStream.Close();
                 tcpClient.Close();
             }

@@ -1,18 +1,16 @@
-﻿using System;
+﻿using Area23.At.Framework.Library.Core;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Net;
-using CSharp_Server6.Framework.Net;
 using System.Net.Sockets;
 using System.Net.WebSockets;
-using CSharp_Server6.Framework;
 
 
-namespace CSharp_Server6
+namespace CSharpServer6.WinNativeConsole6
 {
-
     /// <summary>
     /// Listener6 is listening server
     /// </summary>
@@ -78,6 +76,7 @@ namespace CSharp_Server6
                 Console.WriteLine("Closing socket.");
             }
         }
+
 
 
         /// <summary>

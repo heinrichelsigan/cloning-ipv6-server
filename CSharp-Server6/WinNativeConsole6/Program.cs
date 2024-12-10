@@ -1,8 +1,10 @@
-﻿using System.Net.Sockets;
+﻿using Area23.At.Framework.Library.Core;
+using System.Net.Sockets;
 using System.Net;
-using CSharp_Server6.Framework.Net;
+using CSharpServer6.WinNativeConsole6;
+using Area23.At.Framework.Library.Core.Net;
 
-namespace CSharp_Server6
+namespace CSharpServer6.WinNativeConsole6
 {
     internal class Program
     {
@@ -11,11 +13,11 @@ namespace CSharp_Server6
             Console.WriteLine("Hello, World!");
             List<IPAddress> addrs = NetworkAddresses.GetConnectedIpAddresses();
             foreach (IPAddress addr in addrs)
-            {
-                Listener6 listener = new Listener6(addr);
+            {                
+                Listener6 listener = new Listener6(addr);                
                 // Task.Run(() =>
                 // {
-                listener.RunServer();
+                    listener.RunServer();
                 // });
             }
         }

@@ -16,6 +16,7 @@ namespace CSharp_Server6.Framework.Net
     public static class NetworkAddresses
     {
 
+
         /// <summary>
         /// GetConnectedIpAddresses gets connected IPAddress list.
         /// </summary>
@@ -24,9 +25,8 @@ namespace CSharp_Server6.Framework.Net
         {
             List<IPAddress> validAddrs = new List<IPAddress>();
             List<IPAddress> serverIps = new List<IPAddress>();
-            
             foreach (IPAddress serverIp in GetIpAddrsByHostName("area23.at"))
-                serverIps.Add(serverIp);            
+                serverIps.Add(serverIp);
             foreach (IPAddress serverIp in GetIpAddrsByHostName("paris.area23.at"))
                 serverIps.Add(serverIp);
             try
@@ -38,8 +38,8 @@ namespace CSharp_Server6.Framework.Net
             {
                 Area23Log.LogStatic(exVirginia);
             }
-            try 
-            { 
+            try
+            {
                 foreach (IPAddress serverIp in GetIpAddrsByHostName("parisienne.area23.at"))
                     serverIps.Add(serverIp);
             }
@@ -55,12 +55,11 @@ namespace CSharp_Server6.Framework.Net
                 try
                 {
                     resp = TcpClientWebRequest.MakeWebRequest(serverIp);
-                    
+
                     clientIp = IPAddress.Parse(resp);
-                    Console.Out.WriteLine("GetConnectedIpAddresses add ip " + resp);
                     if (!validAddrs.Contains(clientIp))
                         validAddrs.Add(clientIp);
-                } 
+                }
                 catch (Exception ex)
                 {
                     Area23Log.LogStatic(ex);
@@ -69,6 +68,7 @@ namespace CSharp_Server6.Framework.Net
 
             return validAddrs;
         }
+
 
         /// <summary>
         /// GetIpAddresses gets all IPAddresses except loopback adapter
