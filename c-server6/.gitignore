@@ -4,6 +4,8 @@
 
 *.o
 server6.o
+server66.o
 client6.o
 server6
+server66
 client6
