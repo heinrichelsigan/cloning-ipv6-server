@@ -16,16 +16,24 @@ public class ImageTest {
 
     public static void main(String avg[]) throws IOException
     {
-        ImageTest imgTest = new ImageTest();
+      ImageTest imgTest; 
+      if (avg == null || avg.length == 0) {
+        imgTest = new ImageTest("2024-12-11_BorderTrump_2.jpg");
+        return;
+      }
+
+      for (int i = 0; i < avg.length; i++) 
+          imgTest = new ImageTest(avg[i]);
     }
 
-    public ImageTest() throws IOException
+    public ImageTest(String fileName) throws IOException
     {
-        BufferedImage img=ImageIO.read(new File("Screenshot 2024-12-09 040345.png"));
+        File file = new File(fileName);
+        BufferedImage img=ImageIO.read(file);
         ImageIcon icon=new ImageIcon(img);
         JFrame frame=new JFrame();
         frame.setLayout(new FlowLayout());
-        frame.setSize(200,300);
+        frame.setSize(640,480);
         JLabel lbl=new JLabel();
         lbl.setIcon(icon);
         frame.add(lbl);
