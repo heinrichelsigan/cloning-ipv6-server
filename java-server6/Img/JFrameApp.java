@@ -5,6 +5,8 @@ A basic extension of the JApplet class
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import javax.swing.plaf.metal.*;
+import javax.swing.plaf.synth.*;
 
 public class JFrameApp extends JFrame
 {
@@ -24,19 +26,26 @@ public class JFrameApp extends JFrame
 		jf.setSize(640,480);
 		
 		jMenuBar = new JMenuBar();
-		jf.setJMenuBar(jMenuBar);
-		jf.getContentPane().add(jMenuBar);
-		jMenuBar.move(0,267);
-		
+		Object o = jMenuBar.getUI();
 		AddMenus(jMenuBar);
+		
+		jMenuBar.setBounds(1, 1, 639, 25);
+		
+		jf.setJMenuBar(jMenuBar);
+		jf.add(jMenuBar);
+		// jMenuBar.move(0,267);
+		
+		
 		
 
 		JButton1.setText("jbutton");
 		jf.getContentPane().add(JButton1);
-		JButton1.setBounds(24,120,144,144);
+		JButton1.setBounds(24,168,120,60);
 		JButton1.setActionCommand("jbutton");
 		jf.getContentPane().add(JTextArea1);
 		JTextArea1.setBounds(24,48,400,108);
+		
+		JTextArea1.append("jMenuBar.getUI() == " + o + "\n");
 		jf.setVisible(true);
 		//}}
 	
@@ -68,29 +77,31 @@ public class JFrameApp extends JFrame
 	public static JFrameApp jFrameApp;
 	JButton JButton1 = new JButton();
 	JTextArea JTextArea1 = new JTextArea();
+	
 	JMenuBar jMenuBar = new JMenuBar();
+	// JMenuBar jMenuBar = new JMenuBar();
 	JMenu menuFile;
 	JMenuItem menuFile_itemOpen;
 	JMenuItem menuFile_itemSave;
 	JMenuItem menuFile_itemExit = new JMenuItem();
 	JMenu menuView;
-	JMenuItem menuView_itemLeftRight = new JMenuItem();
-	JMenuItem menuView_itemTopBottom = new JMenuItem();
-	JMenuItem menuView_item1View = new JMenuItem();
-	JMenu menuIPAddrs = new JMenu();
-	JMenu menuIPAddrs_menuMyIps = new JMenu();
-	JMenu menuIPAddrs_menuFriendIps = new JMenu();
-	JMenu menuIPAddrs_menuProxies = new JMenu();
-	JMenuItem menuIPAddrs_itemIPv6Secure = new JMenuItem();
-	JMenu menuChat = new JMenu();
-	JMenuItem menuChat_itemSend = new JMenuItem();
-	JMenuItem menuChat_itemRefresh = new JMenuItem();
-	JMenuItem menuChat_itemClear = new JMenuItem();
-	JMenu menuContacts = new JMenu();
-	JMenuItem menuContacts_itemMy = new JMenuItem();
-	JMenuItem menuContacts_itemAdd = new JMenuItem();
-	JMenuItem menuContacts_itemImport = new JMenuItem();
-	JMenuItem menuContacts_itemView = new JMenuItem();
+	JMenuItem menuView_itemLeftRight;
+	JMenuItem menuView_itemTopBottom;
+	JMenuItem menuView_item1View;
+	JMenu menuIPAddrs;
+	JMenu menuIPAddrs_menuMyIps;
+	JMenu menuIPAddrs_menuFriendIps;
+	JMenu menuIPAddrs_menuProxies;
+	JMenuItem menuIPAddrs_itemIPv6Secure;
+	JMenu menuChat;
+	JMenuItem menuChat_itemSend;
+	JMenuItem menuChat_itemRefresh;
+	JMenuItem menuChat_itemClear;
+	JMenu menuContacts;
+	JMenuItem menuContacts_itemMy;
+	JMenuItem menuContacts_itemAdd;
+	JMenuItem menuContacts_itemImport;
+	JMenuItem menuContacts_itemView;
 	
 	JMenu menuHelp = new JMenu();
 	JMenuItem menuHelp_itemAbout = new JMenuItem();
@@ -276,7 +287,7 @@ public class JFrameApp extends JFrame
 	public static void main(String args[]) {
 		
 		jFrameApp = new JFrameApp();
-		jFrameApp.setLayout(new GridLayout(1,1));
+		jFrameApp.setLayout(null);
 		jFrameApp.setSize(480,360);
 		jFrameApp.Init(jFrameApp);
 		jFrameApp.setVisible(true);
