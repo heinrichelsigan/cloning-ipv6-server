@@ -15,97 +15,6 @@ public class JFrameApp extends JFrame
 
 	}
 
-	public void Init(JFrame jf)
-	{
-		// symantec.itools.lang.Context.setApplet(this);
-		
-		// getRootPane().putClientProperty("defeatSystemEventQueueCheck", Boolean.TRUE);
-		
-
-		jf.setLayout(null);
-		jf.setSize(640,480);
-		
-		jMenuBar = new JMenuBar();
-		Object o = jMenuBar.getUI();
-		AddMenus(jMenuBar);
-		
-		jMenuBar.setBounds(1, 1, 639, 25);
-		
-		jf.setJMenuBar(jMenuBar);
-		jf.add(jMenuBar);
-		// jMenuBar.move(0,267);
-		
-		
-		
-
-		JButton1.setText("jbutton");
-		jf.getContentPane().add(JButton1);
-		JButton1.setBounds(24,168,120,60);
-		JButton1.setActionCommand("jbutton");
-		jf.getContentPane().add(JTextArea1);
-		JTextArea1.setBounds(24,48,400,108);
-		
-		JTextArea1.append("jMenuBar.getUI() == " + o + "\n");
-		jf.setVisible(true);
-		//}}
-	
-		//{{REGISTER_LISTENERS
-		SymAction lSymAction = new SymAction();
-		
-		menuFile_itemExit.addActionListener(lSymAction);
-		
-		menuView_itemLeftRight.addActionListener(lSymAction);
-		menuView_itemTopBottom.addActionListener(lSymAction);
-		menuView_item1View.addActionListener(lSymAction);
-		
-		menuChat_itemSend.addActionListener(lSymAction);
-		menuChat_itemRefresh.addActionListener(lSymAction);
-		menuChat_itemClear.addActionListener(lSymAction);
-		
-		menuContacts_itemMy.addActionListener(lSymAction);
-		menuContacts_itemAdd.addActionListener(lSymAction);
-		menuContacts_itemImport.addActionListener(lSymAction);
-		menuContacts_itemView.addActionListener(lSymAction);
-		
-		menuHelp_itemAbout.addActionListener(lSymAction);
-		
-		JButton1.addActionListener(lSymAction);
-		//}}
-	}
-
-	//{{DECLARE_CONTROLS
-	public static JFrameApp jFrameApp;
-	JButton JButton1 = new JButton();
-	JTextArea JTextArea1 = new JTextArea();
-	
-	JMenuBar jMenuBar = new JMenuBar();
-	// JMenuBar jMenuBar = new JMenuBar();
-	JMenu menuFile;
-	JMenuItem menuFile_itemOpen;
-	JMenuItem menuFile_itemSave;
-	JMenuItem menuFile_itemExit = new JMenuItem();
-	JMenu menuView;
-	JMenuItem menuView_itemLeftRight;
-	JMenuItem menuView_itemTopBottom;
-	JMenuItem menuView_item1View;
-	JMenu menuIPAddrs;
-	JMenu menuIPAddrs_menuMyIps;
-	JMenu menuIPAddrs_menuFriendIps;
-	JMenu menuIPAddrs_menuProxies;
-	JMenuItem menuIPAddrs_itemIPv6Secure;
-	JMenu menuChat;
-	JMenuItem menuChat_itemSend;
-	JMenuItem menuChat_itemRefresh;
-	JMenuItem menuChat_itemClear;
-	JMenu menuContacts;
-	JMenuItem menuContacts_itemMy;
-	JMenuItem menuContacts_itemAdd;
-	JMenuItem menuContacts_itemImport;
-	JMenuItem menuContacts_itemView;
-	
-	JMenu menuHelp = new JMenu();
-	JMenuItem menuHelp_itemAbout = new JMenuItem();
-	//}}
 
 	
 	public void AddMenus(JMenuBar jBar) {
@@ -284,6 +193,114 @@ public class JFrameApp extends JFrame
 		
 	}
 	
+
+	public void Init(JFrame jf)
+	{
+		// symantec.itools.lang.Context.setApplet(this);
+		
+		// getRootPane().putClientProperty("defeatSystemEventQueueCheck", Boolean.TRUE);
+		
+
+		jf.setLayout(null);
+		jf.setSize(800, 680);
+		
+		jMenuBar = new JMenuBar();
+		AddMenus(jMenuBar);
+		
+		// jMenuBar.setBounds(0, 0, 480, 24);
+		
+		// jMenuBar.setSize(480,24);
+		jf.setJMenuBar(jMenuBar);
+		// jf.add(jMenuBar);
+		// jMenuBar.move(0,  0);
+		
+		jComboBox.setBounds(48, 36, 640, 24);
+		jf.getContentPane().add(jComboBox);
+		
+		jPanelCenter.setBounds(48, 72, 640, 400);
+		jPanelCenter.setLayout(new GridLayout(1, 2));
+		jPanelCenter.setBackground(Color.BLACK);  
+		jPanelCenter.add(jTextAreaSource);
+		jTextAreaSource.setBounds(1,1,632,196);
+		jTextAreaSource.setBackground(Color.GRAY);  
+		jTextAreaSource.append("jMenuBar.getUI() == " + jMenuBar.getUI() + "\n");		
+		jPanelCenter.add(jTextAreaDestination);
+		jTextAreaDestination.setBounds(1,240,632,196);
+		jTextAreaDestination.setBackground(Color.YELLOW);  
+		
+		
+		jf.getContentPane().add(jPanelCenter);
+		
+		JButton1.setText("jbutton");
+		jf.getContentPane().add(JButton1);
+		JButton1.setBounds(24,600,76,48);
+		JButton1.setActionCommand("jbutton");
+		
+		
+		
+		jf.setVisible(true);
+		//}}
+	
+		//{{REGISTER_LISTENERS
+		SymAction lSymAction = new SymAction();
+		
+		menuFile_itemExit.addActionListener(lSymAction);
+		
+		menuView_itemLeftRight.addActionListener(lSymAction);
+		menuView_itemTopBottom.addActionListener(lSymAction);
+		menuView_item1View.addActionListener(lSymAction);
+		
+		menuChat_itemSend.addActionListener(lSymAction);
+		menuChat_itemRefresh.addActionListener(lSymAction);
+		menuChat_itemClear.addActionListener(lSymAction);
+		
+		menuContacts_itemMy.addActionListener(lSymAction);
+		menuContacts_itemAdd.addActionListener(lSymAction);
+		menuContacts_itemImport.addActionListener(lSymAction);
+		menuContacts_itemView.addActionListener(lSymAction);
+		
+		menuHelp_itemAbout.addActionListener(lSymAction);
+		
+		JButton1.addActionListener(lSymAction);
+		//}}
+	}
+
+	//{{DECLARE_CONTROLS
+	public static JFrameApp jFrameApp;
+	JComboBox jComboBox = new JComboBox();
+	JPanel jPanelCenter = new JPanel();
+	JButton JButton1 = new JButton();
+	JTextArea jTextAreaSource = new JTextArea(), jTextAreaDestination = new JTextArea();
+	
+	JMenuBar jMenuBar = new JMenuBar();
+	// JMenuBar jMenuBar = new JMenuBar();
+	JMenu menuFile;
+	JMenuItem menuFile_itemOpen;
+	JMenuItem menuFile_itemSave;
+	JMenuItem menuFile_itemExit = new JMenuItem();
+	JMenu menuView;
+	JMenuItem menuView_itemLeftRight;
+	JMenuItem menuView_itemTopBottom;
+	JMenuItem menuView_item1View;
+	JMenu menuIPAddrs;
+	JMenu menuIPAddrs_menuMyIps;
+	JMenu menuIPAddrs_menuFriendIps;
+	JMenu menuIPAddrs_menuProxies;
+	JMenuItem menuIPAddrs_itemIPv6Secure;
+	JMenu menuChat;
+	JMenuItem menuChat_itemSend;
+	JMenuItem menuChat_itemRefresh;
+	JMenuItem menuChat_itemClear;
+	JMenu menuContacts;
+	JMenuItem menuContacts_itemMy;
+	JMenuItem menuContacts_itemAdd;
+	JMenuItem menuContacts_itemImport;
+	JMenuItem menuContacts_itemView;
+	
+	JMenu menuHelp = new JMenu();
+	JMenuItem menuHelp_itemAbout = new JMenuItem();
+	//}}
+
 	public static void main(String args[]) {
 		
 		jFrameApp = new JFrameApp();
@@ -342,33 +359,83 @@ public class JFrameApp extends JFrame
 	}
 
 	void viewChange(ActionEvent event, String whichView) {
-		JTextArea1.append("View menu, view changed to " + whichView + ", event: " + event + "\n");
+		jTextAreaSource.append("View menu, view changed to " + whichView + ", event: " + event + "\n");
+	
+		if (whichView == "LeftRight") {
+			
+			jPanelCenter.remove(jTextAreaSource);
+			jPanelCenter.remove(jTextAreaDestination);
+			
+			jPanelCenter.setBounds(48, 72, 640, 400);
+			jPanelCenter.setLayout(new GridLayout(1, 2));
+			jPanelCenter.setBackground(Color.BLACK);  
+			jPanelCenter.add(jTextAreaSource);
+			jTextAreaSource.setBounds(1,1,632,236);
+			jTextAreaSource.setBackground(Color.GRAY);  
+			jTextAreaSource.append("jMenuBar.getUI() == "  + jMenuBar.getUI() + "\n");		
+			jPanelCenter.add(jTextAreaDestination);
+			jTextAreaDestination.setBounds(1,240,632,236);
+			jTextAreaDestination.setBackground(Color.YELLOW);  
+		}
+		else if (whichView == "TopBottom") {
+			jPanelCenter.remove(jTextAreaSource);
+			jPanelCenter.remove(jTextAreaDestination);
+			
+			jPanelCenter.setBounds(48, 72, 640, 400);
+			jPanelCenter.setLayout(new GridLayout(2, 1));
+			jPanelCenter.setBackground(Color.BLACK);  
+			jPanelCenter.add(jTextAreaSource);
+			jTextAreaSource.setBounds(1,1,632,236);
+			jTextAreaSource.setBackground(Color.GRAY);  
+			jTextAreaSource.append("jMenuBar.getUI() == " + jMenuBar.getUI() +  "\n");		
+			jPanelCenter.add(jTextAreaDestination);
+			jTextAreaDestination.setBounds(1,240,632,236);
+			jTextAreaDestination.setBackground(Color.YELLOW);
+		} else {
+			jPanelCenter.remove(jTextAreaSource);
+			jPanelCenter.remove(jTextAreaDestination);
+			
+			jPanelCenter.setBounds(48, 72, 640, 400);
+			jPanelCenter.setLayout(new GridLayout(1, 1));
+			jPanelCenter.setBackground(Color.BLACK);  
+			jPanelCenter.add(jTextAreaSource);
+			jTextAreaSource.setBounds(1,1,632,236);
+			jTextAreaSource.setBackground(Color.GRAY);  
+			jTextAreaSource.append("jMenuBar.getUI() == "  + jMenuBar.getUI() + "\n");		
+			// jPanelCenter.add(jTextAreaDestination);
+			// jTextAreaDestination.setBounds(1,240,632,236);
+			// jTextAreaDestination.setBackground(Color.YELLOW)	
+		}
 	}
 	
 	
+	
 	void chatCommand(ActionEvent event, String whichCommand) { 
-		JTextArea1.append("Menu Chat = command " + whichCommand + ", event: " + event + "\n");
+		jTextAreaSource.append("Menu Chat = command " + whichCommand + ", event: " + event + "\n");
+		
+		
+		
 	}
 	
 	
 	void addEditContact(ActionEvent event, int who) {
 		if (who == 0)
-			JTextArea1.append("Menu Contact => edit \"My Contact\", event: " + event + "\n");
+			jTextAreaSource.append("Menu Contact => edit \"My Contact\", event: " + event + "\n");
 		else if (who > 0)
-			JTextArea1.append("Menu Contact => add/edit contacts, event: " + event + "\n");
+			jTextAreaSource.append("Menu Contact => add/edit contacts, event: " + event + "\n");
 		else if (who < 0)
-			JTextArea1.append("Menu Contact => import contacts, event: " + event + "\n");
+			jTextAreaSource.append("Menu Contact => import contacts, event: " + event + "\n");
 	}
 	
 	void viewContact(ActionEvent event) {
 	
-		JTextArea1.append("Menu Contact => view contacts, event: " + event + "\n");
+		jTextAreaSource.append("Menu Contact => view contacts, event: " + event + "\n");
 	}
 
 
 	void about(ActionEvent event) {
 	
-		JTextArea1.append("About menu clicked, event: " + event + "\n");
+		jTextAreaSource.append("About menu clicked, event: " + event + "\n");
 	}
 	
 
@@ -382,7 +449,7 @@ public class JFrameApp extends JFrame
 	void JButton1_actionPerformed_Interaction1(ActionEvent event)
 	{
 		try {
-			JTextArea1.setText("hallo");
+			jTextAreaSource.setText("hallo");
 		} catch (Exception e) {
 		}
 	}
